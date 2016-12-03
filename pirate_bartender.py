@@ -1,4 +1,4 @@
-"""Pirate bartender creates a cocktail based on the answers to some simple
+"""Pirate bartender creates a cocktail based on the answers to some
 questions."""
 
 import random
@@ -19,11 +19,17 @@ ingredients = {
     "fruity": ["slice of orange", "dash of cassis", "cherry on top"],
 }
 
+preferences = {}
+
+adjectives = ["Arrogant","Bubbly","Comfortable","Dilicious","Earthy","Diabolical"]
+
+nouns = ["Aardvark","Pomeranian","Chinchilla","Swimmer","Herb","Beach"]
+
+drink = []
+
 def obtain_preferences():
     """Gather customer responses to the questions and save them in the
     preferences dictionary."""
-    
-    preferences = {}
     
     for flavor in questions:
         preferences[flavor] = str(input(questions[flavor])).lower()
@@ -40,23 +46,36 @@ def pour(preferences):
     """Use the preferences and ingredients dictionaries to randomly select
     ingredients that correspond to flavors the customer enjoys."""
     
-    drink = []
-    
     for flavor in preferences:
         if preferences[flavor] == True:
             drink.append(random.choice(ingredients[flavor]))
     
     return drink
 
-def main(preferences, drink):
+def main():
     """This function calls the obtain_preferences function and imports the
     preferences dictionary. Then it calls the pour function and imports 
     the drink list. Finally it prints the drink."""
     
-    obtain_preferences()
-    pour(preferences)
+    customer = "sober"
     
-    print(drink)
-
-if __name__=="__main__":
-    main(obtain_preferences, pour)
+    while customer == "sober":
+        obtain_preferences()
+        pour(preferences)
+    
+        name = str(random.choice(adjectives)) + " " + str(random.choice(nouns))
+        
+        print(name)
+        print(drink)
+        
+        sobriety = input("Would you like another beverage? ").lower()
+        if sobriety == "no":
+            customer = "drunk"
+        elif sobriety == "n":
+            customer = "drunk"
+        else:
+            pass
+        
+    
+if __name__ == "__main__":
+    main()
